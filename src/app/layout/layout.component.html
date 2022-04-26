@@ -1,1 +1,19 @@
-<p>layout works!</p>
+<div class="row">
+  <div class="col-12 col-lg-6">
+    <div *ngIf="posts">
+      {{posts | json}}
+    </div>
+    <ng-template #isLoading>
+      <i class="fa-solid fa-spinner fa-spin"></i>
+    </ng-template>
+  </div>
+  <div class="col-12 col-lg-6">
+    <div *ngIf="(postsAsync | async); else isLoadingAsync">
+      {{(postsAsync | async) | json}}
+    </div>
+
+    <ng-template #isLoadingAsync>
+      <i class="fa-solid fa-spinner fa-spin"></i>
+    </ng-template>
+  </div>
+</div>

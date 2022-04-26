@@ -1,4 +1,6 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { Post } from '../interfaces/post';
 import { PostsService } from './posts.service';
 
 @Component({
@@ -8,13 +10,21 @@ import { PostsService } from './posts.service';
 })
 export class LayoutComponent implements OnInit {
 
+  posts: Post[] = [];
+  postsAsync: Observable<Post[]>;
+
   constructor(
-    private posts: PostsService
+    private post: PostsService
   ) { }
 
   ngOnInit(): void {
-    this.posts.getPosts().subscribe(posts => {
-      console.log(posts);
+    this.postsAsync = this.post.getPosts();
+    this.getPosts();
+  }
+
+  getPosts() {
+    this.post.getPosts().subscribe((posts) => {
+      this.posts = posts;
     });
   }
 
